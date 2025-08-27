@@ -12,6 +12,7 @@ app.use((req, res, next) => {
 const posts : any [] = [];
 app.get('/posts', (req, res) => {
     res.send( {posts} );
+    
 });
 app.post('/posts', (req, res) => {
     const post = req.body;
