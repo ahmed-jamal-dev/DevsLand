@@ -1,8 +1,8 @@
-import { UesrDao } from './UserDao.js';
-import { PostDao } from './PostDao.js';
-import { LikesDao } from './LikesDao.js';
-import { CommentDao } from './CommentDao.js';
-import { InMemoryDataStore } from '../datastore/memorydb/index.js';
-export interface DataStore extends UesrDao, PostDao, LikesDao, CommentDao {}
+import { UserDao } from './UserDao';
+import { PostDao } from './PostDao';
+import { LikesDao } from './LikesDao';
+import { CommentDao } from './CommentDao';
+import { InMemoryDataStore } from '@datastore/memorydb';
+export interface DataStore extends UserDao, PostDao, LikesDao, CommentDao {}
 
 export const db = new InMemoryDataStore();

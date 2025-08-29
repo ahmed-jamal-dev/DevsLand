@@ -1,5 +1,5 @@
-import { User, Post, Likes, Comment } from '../../types.js';
-import { DataStore } from '../index.js';
+import { User, Post, Likes, Comment } from '@types';
+import { DataStore } from '@datastore';
 export class InMemoryDataStore implements DataStore {
     private users: User[] = [];
     private posts: Post[] = [];

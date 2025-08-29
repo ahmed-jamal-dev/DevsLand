@@ -1,1 +1,1 @@
-export * from './PostHandler.js';
+export * from './PostHandler';

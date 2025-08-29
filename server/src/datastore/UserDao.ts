@@ -1,5 +1,5 @@
-import { User } from '../types.js';
-export interface UesrDao {
+import { User } from '@types';
+export interface UserDao {
     createUser(user: User): void;
     getUserByEmail(email: string): User | undefined;
     getUserByUsername(Username: string): User | undefined;

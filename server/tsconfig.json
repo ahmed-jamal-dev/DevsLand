@@ -29,7 +29,11 @@
         "paths": {
             "@/*": ["./*"],
             "@handlers": ["./Handlers"],
-            "@handlers/*": ["./Handlers/*"]
+            "@handlers/*": ["./Handlers/*"],
+            "@types": ["./types"],
+            "@datastore": ["./datastore"],
+            "@datastore/*": ["./datastore/*"],
+            "@api": ["./api"]
         }
     },
     "include": ["src"],

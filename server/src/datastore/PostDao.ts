@@ -1,4 +1,5 @@
-import { Post } from '../types.js';
+import { Post } from "@types";
+
 export interface PostDao {
     listPosts(): Post[];
     createPost(post: Post): void;

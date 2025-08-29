@@ -20,4 +20,9 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
     return res.status(500).send('0ops! Something went wrong , please try again.');
 };
 app.use(errorHandler);
-app.listen(3000);
+app.listen(
+    3000,
+    () => {
+        console.log('Server is running on port 3000');
+    }
+);

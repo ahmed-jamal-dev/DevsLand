@@ -1,6 +1,6 @@
 import { CreatePostRequest, CreatePostResponse, ListPostsRequest, ListPostsResponse } from '../api';
-import { db } from '../datastore/index.js';
-import { ExpressHandler, Post } from '../types';
+import { db } from '@datastore';
+import { ExpressHandler, Post } from '@types';
 import crypto from 'crypto';
 export const listPostHandler: ExpressHandler<ListPostsRequest, ListPostsResponse> = (
     request,
