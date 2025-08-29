@@ -1,32 +1,35 @@
 {
-  "name": "server",
-  "version": "1.0.0",
-  "description": "",
-  "main": "dist/index.js",
-  "type": "module",
-  "scripts": {
-    "dev": "nodemon --exec tsx ./src/index.ts",
-    "start": "node dist/index.js",
-    "build": "tsc"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "packageManager": "pnpm@10.15.0",
-  "dependencies": {
-    "express": "^5.1.0",
-    "express-serve-static-core": "^0.1.1",
-    "typescript": "^5.9.2"
-  },
-  "devDependencies": {
-    "@trivago/prettier-plugin-sort-imports": "^5.2.2",
-    "@types/express": "^5.0.3",
-    "@types/express-serve-static-core": "^5.0.7",
-    "@types/node": "^24.3.0",
-    "nodemon": "^3.1.10",
-    "prettier": "^3.6.2",
-    "ts-node": "^10.9.2",
-    "tsconfig-paths": "^4.2.0",
-    "tsx": "^4.20.5"
-  }
+    "name": "server",
+    "version": "1.0.0",
+    "description": "",
+    "main": "dist/index.js",
+    "type": "module",
+    "scripts": {
+        "dev": "nodemon --exec tsx ./src/index.ts",
+        "start": "node dist/index.js",
+        "build": "tsc",
+        "lint": "prettier --write \"**/*.{js,jsx,json,md,ts}\" --config ./.prettierrc.json",
+        "format": "prettier --write \"**/*.{js,jsx,json,ts,tsx,css,md}\" --config ./.prettierrc.json",
+        "lint:fix": "prettier --write \"**/*.{js,jsx,json,ts,tsx,md}\" --config ./.prettierrc.json --loglevel warn"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "packageManager": "pnpm@10.15.0",
+    "dependencies": {
+        "express": "^5.1.0",
+        "express-serve-static-core": "^0.1.1",
+        "typescript": "^5.9.2"
+    },
+    "devDependencies": {
+        "@trivago/prettier-plugin-sort-imports": "^5.2.2",
+        "@types/express": "^5.0.3",
+        "@types/express-serve-static-core": "^5.0.7",
+        "@types/node": "^24.3.0",
+        "nodemon": "^3.1.10",
+        "prettier": "^3.6.2",
+        "ts-node": "^10.9.2",
+        "tsconfig-paths": "^4.2.0",
+        "tsx": "^4.20.5"
+    }
 }
