@@ -7,6 +7,7 @@ export const listPostHandler: ExpressHandler<ListPostsRequest, ListPostsResponse
 }; 
 
 export const createPostHandler: ExpressHandler<CreatePostRequest,CreatePostResponse> = (request, response) => {
+  // Validate the request body
   if(!request.body.Title){ 
     return response.sendStatus(400).send("Title is required");
   }
