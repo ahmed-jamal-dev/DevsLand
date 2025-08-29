@@ -1,4 +1,4 @@
-import { User } from "../src/types";
+import { User } from "../src/types.js";
 export interface UesrDao{
     createUser(user: User):void;
     getUserByEmail(email: string): User | undefined;
