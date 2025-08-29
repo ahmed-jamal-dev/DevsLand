@@ -1,31 +1,41 @@
 {
-  "compilerOptions": {
-    // File Layout
-    "rootDir": "./",
-    "outDir": "./dist",
+    "compilerOptions": {
+        // File Layout
+        "rootDir": "./src",
+        "outDir": "./dist",
 
-    // Environment Settings
-    "target": "ESNext",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "lib": ["ESNext"],
-    "types": ["node"],
+        // Environment Settings
+        "target": "ESNext",
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "lib": ["ESNext"],
+        "types": ["node"],
 
-    // Other Outputs
-    "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
+        // Other Outputs
+        "sourceMap": true,
+        "declaration": true,
+        "declarationMap": true,
 
-    // Stricter Typechecking Options
-    "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
+        // Stricter Typechecking Options
+        "noUncheckedIndexedAccess": true,
+        "exactOptionalPropertyTypes": true,
 
-    // Recommended Options
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
-  },
-  "include": ["src"],
-  "exclude": ["dist"]
+        // Recommended Options
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "baseUrl": "./src",  
+        "paths": {
+            "@/*": ["./*"],
+            "@handlers": ["./Handlers"],
+            "@handlers/*": ["./Handlers/*"],
+            "@types": ["./types"],
+            "@datastore": ["./datastore"],
+            "@datastore/*": ["./datastore/*"],
+            "@api": ["./api"]
+        }
+    },
+    "include": ["src"],
+    "exclude": ["dist"]
 }
