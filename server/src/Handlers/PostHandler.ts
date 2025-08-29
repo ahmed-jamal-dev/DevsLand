@@ -2,24 +2,24 @@ import { CreatePostRequest, CreatePostResponse, ListPostsRequest, ListPostsRespo
 import { db } from '@datastore';
 import { ExpressHandler, Post } from '@types';
 import crypto from 'crypto';
-export const listPostHandler: ExpressHandler<ListPostsRequest, ListPostsResponse> = (
+export const listPostHandler: ExpressHandler<ListPostsRequest, ListPostsResponse> = async (
     request,
     response
 ) => {
-    response.send({ posts: db.listPosts() });
+    response.send({ posts:await db.listPosts() });
 };
 
-export const createPostHandler: ExpressHandler<CreatePostRequest, CreatePostResponse> = (
+export const createPostHandler: ExpressHandler<CreatePostRequest, CreatePostResponse> = async (
     request,
     response
 ) => {
-    // Validate the request body
-    if (!request.body.Title) {
-        return response.sendStatus(400).send('Title is required');
-    }
     if (!request.body.Title || !request.body.UserId || !request.body.Url) {
         return response.sendStatus(400);
     }
+    //todo: validate user id from session
+    //todo: validate user exists
+    //todo: validate url is and title is not empty
+    //todo: url is new , otherwise +1 to existing post
     const post: Post = {
         Id: crypto.randomUUID(),
         PostAt: Date.now(),
@@ -27,6 +27,6 @@ export const createPostHandler: ExpressHandler<CreatePostRequest, CreatePostResp
         Url: request.body.Url,
         UserId: request.body.UserId,
     };
-    db.createPost(post);
+    await db.createPost(post);
     response.sendStatus(200);
 };

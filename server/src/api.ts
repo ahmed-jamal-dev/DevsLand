@@ -1,4 +1,4 @@
-import { Post } from './types';
+import { Post } from '@types';
 
 //Post APIs
 export type CreatePostRequest = Pick<Post, 'Title' | 'UserId' | 'Url'>;
