@@ -1,4 +1,4 @@
-import { CreatePostRequest, CreatePostResponse, ListPostsRequest, ListPostsResponse } from '../api';
+import { CreatePostRequest, CreatePostResponse, ListPostsRequest, ListPostsResponse } from '@api';
 import { db } from '@datastore';
 import { ExpressHandler, Post } from '@types';
 import crypto from 'crypto';
