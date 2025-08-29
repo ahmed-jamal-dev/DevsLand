@@ -1,5 +1,5 @@
-import { User, Post, Likes, Comment } from "../../src/types.ts";
-import { DataStore } from "../index.ts";
+import { User, Post, Likes, Comment } from "../../src/types.js";
+import { DataStore } from "../index.js";
 export class InMemoryDataStore implements DataStore {
   private users: User[] = [];
   private posts: Post[] = [];

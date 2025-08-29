@@ -1,19 +1,18 @@
 import { db } from "../datastore/index.js";
 import { ExpressHandler, Post } from "../src/types.js";
-import crypto from 'crypto'
-
-
-export const listPostHandler: ExpressHandler<{}, {}> = (request, response) => {
+import crypto from 'crypto';
+import { CreatePostRequest, CreatePostResponse, ListPostsRequest, ListPostsResponse } from "../api.js";
+export const listPostHandler: ExpressHandler<ListPostsRequest, ListPostsResponse> = (request, response) => {
   response.send({ posts: db.listPosts() });
-};
-type CreatePostRequest = Pick<Post,"Title"|"UserId"|"Url">; 
-
-export interface CreatePostResponse {}
+}; 
 
 export const createPostHandler: ExpressHandler<CreatePostRequest,CreatePostResponse> = (request, response) => {
+  if(!request.body.Title){ 
+    return response.sendStatus(400).send("Title is required");
+  }
   if (!request.body.Title || !request.body.UserId|| !request.body.Url) {
     return response.sendStatus(400);
-  }
+  };
     const post : Post = {
         Id: crypto.randomUUID(),
         PostAt: Date.now(),
