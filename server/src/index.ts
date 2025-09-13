@@ -1,20 +1,25 @@
 import express, { RequestHandler, ErrorRequestHandler } from 'express';
 import { createPostHandler, listPostHandler } from '@handlers';
 import { initdb } from '@datastore';
+import { signInHandler, signUpHandler } from './Handlers/userHandler';
 
 (async () =>{
 await initdb();
 const app = express();
 app.use(express.json());
 const RequestLoggerMiddleware: RequestHandler = (req, res, next) => {
-    console.log(req.method, req.path, '__body:', req.body);
+    console.log(req.method, req.path, '__body:', req.body );
     next();
 };
-app.use(RequestLoggerMiddleware);
+// app.use(RequestLoggerMiddleware);
+//POST
+app.get('/v1/listPost', listPostHandler);
+app.post('/v1/createPost', createPostHandler);
+//USER
+app.post('/v1/signup', signUpHandler);
+app.post('/v1/signin', signInHandler);
 
-app.get('/v1/posts', listPostHandler);
 
-app.post('/v1/posts', createPostHandler);
 
 const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
     console.error('Uncaught exception:', err);
@@ -23,7 +28,7 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
 app.use(errorHandler);
 app.listen(
     3000,
-    () => {
+    async() => {
         console.log('Server is running on port 3000');
     }
 );

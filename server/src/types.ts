@@ -2,11 +2,11 @@ import { RequestHandler } from 'express';
 
 export interface User {
     Id: string;
-    FistName: string;
+    FirstName: string;
     LastName: string;
-    Username: string;
+    userName: string;
     Email: string;
-    Password: string;
+    password: string;
 }
 export interface Post {
     Id: string;
