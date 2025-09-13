@@ -1,9 +1,10 @@
-
 import express, { RequestHandler, ErrorRequestHandler } from 'express';
 import { createPostHandler, listPostHandler } from '@handlers';
+import { initdb } from '@datastore';
 
+(async () =>{
+await initdb();
 const app = express();
-
 app.use(express.json());
 const RequestLoggerMiddleware: RequestHandler = (req, res, next) => {
     console.log(req.method, req.path, '__body:', req.body);
@@ -26,3 +27,4 @@ app.listen(
         console.log('Server is running on port 3000');
     }
 );
+})();
