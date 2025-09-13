@@ -13,7 +13,7 @@ export interface Post {
     Title: string;
     Url: string;
     UserId: string;
-    PostAt: number;
+    PostedAt: number;
 }
 export interface Likes {
     UserId: string;

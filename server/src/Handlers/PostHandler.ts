@@ -22,7 +22,7 @@ export const createPostHandler: ExpressHandler<CreatePostRequest, CreatePostResp
     //todo: url is new , otherwise +1 to existing post
     const post: Post = {
         Id: crypto.randomUUID(),
-        PostAt: Date.now(),
+        PostedAt: Date.now(),
         Title: request.body.Title,
         Url: request.body.Url,
         UserId: request.body.UserId,
