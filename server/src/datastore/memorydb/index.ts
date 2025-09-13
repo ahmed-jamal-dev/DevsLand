@@ -3,7 +3,7 @@ import { DataStore } from '@datastore';
 export class InMemoryDataStore implements DataStore {
     private users: User[] = [];
     private posts: Post[] = [];
-    private comments: Comment[] = [];
+    private Comment: Comment[] = [];
     private likes: Likes[] = [];
 
     createUser(user: User): void {
@@ -39,18 +39,18 @@ export class InMemoryDataStore implements DataStore {
         return Promise.resolve();
     }
     createComment(comment: Comment): Promise<void> {
-        this.comments.push(comment);
+        this.Comment.push(comment);
         return Promise.resolve();
     }
-    listComments(postId: string): Promise<Comment[]> {
-        return Promise.resolve(this.comments.filter(comment => comment.PostId === postId));
+    listComment(postId: string): Promise<Comment[]> {
+        return Promise.resolve(this.Comment.filter(comment => comment.PostId === postId));
     }
     deleteComment(id: string): Promise<void> {
-        const index = this.comments.findIndex(comment => comment.Id === id);
+        const index = this.Comment.findIndex(comment => comment.Id === id);
         if (index === -1) {
             return Promise.resolve();
         }
-        this.comments.splice(index, 1);
+        this.Comment.splice(index, 1);
         return Promise.resolve();
     }
 }

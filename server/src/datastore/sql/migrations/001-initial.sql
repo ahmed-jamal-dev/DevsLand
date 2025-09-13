@@ -1,17 +1,35 @@
-CREATE TABLE users (
+CREATE TABLE Users (
     id        VARCHAR PRIMARY KEY,
     firstName VARCHAR NOT NULL,
     lastName  VARCHAR NOT NULL,
-    userName  VARCHAR NOT NULL,
+    userName  VARCHAR UNIQUE NOT NULL,
     email     VARCHAR UNIQUE NOT NULL,
     password  VARCHAR NOT NULL
 );
 
-CREATE TABLE posts (
+CREATE TABLE Posts (
     id        VARCHAR PRIMARY KEY,
     title     VARCHAR NOT NULL,
     url       VARCHAR UNIQUE NOT NULL,
     userId    VARCHAR NOT NULL,
-    postedAt  INTEGER NOT NULL,
-    FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE
+    postedAt  TIMESTAMP NOT NULL,
+    FOREIGN KEY (userId) REFERENCES Users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE Comment (
+    id       VARCHAR PRIMARY KEY,
+    userId   VARCHAR NOT NULL,
+    postId   VARCHAR NOT NULL,
+    Comment  VARCHAR NOT NULL,
+    postedAt TIMESTAMP NOT NULL,
+    FOREIGN KEY (userId) REFERENCES Users(id) ON DELETE CASCADE,
+    FOREIGN KEY (postId) REFERENCES Posts(id) ON DELETE CASCADE
+);
+
+CREATE TABLE Likes (
+    userId VARCHAR NOT NULL,
+    postId VARCHAR NOT NULL,
+    PRIMARY KEY(userId, postId),
+    FOREIGN KEY (userId) REFERENCES Users(id) ON DELETE CASCADE,
+    FOREIGN KEY (postId) REFERENCES Posts(id) ON DELETE CASCADE
 );

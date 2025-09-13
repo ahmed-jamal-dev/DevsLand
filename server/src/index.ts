@@ -2,6 +2,7 @@ import express, { RequestHandler, ErrorRequestHandler } from 'express';
 import { createPostHandler, listPostHandler } from '@handlers';
 import { initdb } from '@datastore';
 import { signInHandler, signUpHandler } from './Handlers/userHandler';
+import { createCommentHandler, deleteCommentHandler, listCommentHandler } from './Handlers/commentHandler';
 
 (async () =>{
 await initdb();
@@ -18,6 +19,10 @@ app.post('/v1/createPost', createPostHandler);
 //USER
 app.post('/v1/signup', signUpHandler);
 app.post('/v1/signin', signInHandler);
+//COMMENTS
+app.post('/v1/addcomment', createCommentHandler)
+app.get('/v1/listcomment',listCommentHandler)
+app.get('/v1/deletecomment',deleteCommentHandler)
 
 
 

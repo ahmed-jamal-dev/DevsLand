@@ -53,22 +53,40 @@ export class sqlDataStore implements DataStore {
             post.PostedAt
         );
     }
-    getPost(id: string): Promise<Post | undefined> {
-        throw new Error('Method not implemented.');
+    async getPost(id: string): Promise<Post | undefined> {
+        return this.db.get<Post>('SELECT * FROM posts WHERE id = ?', id);
     }
-    deletePost(id: string): Promise<void> {
-        throw new Error('Method not implemented.');
+
+    async deletePost(id: string): Promise<void> {
+        await this.db.run('DELETE FROM posts WHERE id = ?', id);
     }
-    createLike(like: Likes): Promise<void> {
-        throw new Error('Method not implemented.');
+
+    async createLike(like: Likes): Promise<void> {
+        await this.db.run(
+            'INSERT INTO likes (UserId, PostId) VALUES (?, ?)',
+            like.UserId,
+            like.PostId
+        );
     }
-    createComment(comment: Comment): Promise<void> {
-        throw new Error('Method not implemented.');
+
+    async createComment(comment: Comment): Promise<void> {
+        await this.db.run(
+            'INSERT INTO comment (userId, postId, Comment, postedAt) VALUES (?, ?, ?, ?)',
+            comment.UserId,
+            comment.PostId,
+            comment.Comment,
+            comment.postedAt
+        );
     }
-    listComments(postId: string): Promise<Comment[]> {
-        throw new Error('Method not implemented.');
+
+    async listComment(postId: string): Promise<Comment[]> {
+        return this.db.all<Comment[]>(
+            'SELECT * FROM comment WHERE postId = ? ORDER BY postedAt ASC',
+            postId
+        );
     }
-    deleteComment(id: string): Promise<void> {
-        throw new Error('Method not implemented.');
+
+    async deleteComment(id: string): Promise<void> {
+        await this.db.run('DELETE FROM comment WHERE id = ?', id);
     }
 }
