@@ -1,18 +1,16 @@
 import express, { RequestHandler, ErrorRequestHandler } from 'express';
 import { createPostHandler, listPostHandler } from '@handlers';
 import { initdb } from '@datastore';
-import { signInHandler, signUpHandler } from '@/Handlers/userHandler';
+import { signInHandler, signUpHandler } from '@/Handlers/authHandler';
 import { createCommentHandler, deleteCommentHandler, listCommentHandler } from '@/Handlers/commentHandler';
+import { RequestLoggerMiddleware } from './middleware/loggerMeddleware';
+import { errorHandler } from './middleware/errorMeddleware';
 
 (async () =>{
 await initdb();
 const app = express();
 app.use(express.json());
-const RequestLoggerMiddleware: RequestHandler = (req, res, next) => {
-    console.log(req.method, req.path, '__body:', req.body );
-    next();
-};
-// app.use(RequestLoggerMiddleware);
+app.use(RequestLoggerMiddleware);
 //POST
 app.get('/v1/listPost', listPostHandler);
 app.post('/v1/createPost', createPostHandler);
@@ -26,10 +24,7 @@ app.get('/v1/deletecomment',deleteCommentHandler)
 
 
 
-const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
-    console.error('Uncaught exception:', err);
-    return res.status(500).send('0ops! Something went wrong , please try again.');
-};
+
 app.use(errorHandler);
 app.listen(
     3000,

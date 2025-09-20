@@ -5,7 +5,7 @@
     "main": "dist/index.js",
     "type": "module",
     "scripts": {
-        "dev": "nodemon --exec tsx ./src/index.ts",
+        "dev": "nodemon --exec tsx ./src/server.ts",
         "start": "node dist/index.js",
         "build": "tsc",
         "lint": "prettier --write \"**/*.{js,jsx,json,md,ts}\" --config ./.prettierrc.json",
