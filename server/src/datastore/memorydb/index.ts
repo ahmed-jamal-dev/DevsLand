@@ -10,7 +10,7 @@ export class InMemoryDataStore implements DataStore {
         this.users.push(user);
     }
     getUserByEmail(email: string):Promise< User | undefined> {
-        return Promise.resolve(this.users.find(user => user.Email === email));
+        return Promise.resolve(this.users.find(user => user.email === email));
     }
     getUserByuserName(userName: string):Promise< User | undefined >{
         return Promise.resolve(this.users.find(user => user.userName === userName));
@@ -23,10 +23,10 @@ export class InMemoryDataStore implements DataStore {
         return Promise.resolve();
     }
     getPost(id: string):Promise< Post | undefined> {
-        return Promise.resolve(this.posts.find(post => post.Id === id));
+        return Promise.resolve(this.posts.find(post => post.id === id));
     }
     deletePost(id: string):Promise< void> {
-        const index = this.posts.findIndex(post => post.Id === id);
+        const index = this.posts.findIndex(post => post.id === id);
         if (index === -1) {
             return Promise.resolve(); 
 
@@ -43,10 +43,10 @@ export class InMemoryDataStore implements DataStore {
         return Promise.resolve();
     }
     listComment(postId: string): Promise<Comment[]> {
-        return Promise.resolve(this.Comment.filter(comment => comment.PostId === postId));
+        return Promise.resolve(this.Comment.filter(comment => comment.postId === postId));
     }
     deleteComment(id: string): Promise<void> {
-        const index = this.Comment.findIndex(comment => comment.Id === id);
+        const index = this.Comment.findIndex(comment => comment.id === id);
         if (index === -1) {
             return Promise.resolve();
         }

@@ -1,2 +1,2 @@
-export * from './PostHandler';
+export * from './postHandler';
 export * from './userHandler';

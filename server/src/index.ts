@@ -1,8 +1,8 @@
 import express, { RequestHandler, ErrorRequestHandler } from 'express';
 import { createPostHandler, listPostHandler } from '@handlers';
 import { initdb } from '@datastore';
-import { signInHandler, signUpHandler } from './Handlers/userHandler';
-import { createCommentHandler, deleteCommentHandler, listCommentHandler } from './Handlers/commentHandler';
+import { signInHandler, signUpHandler } from '@/Handlers/userHandler';
+import { createCommentHandler, deleteCommentHandler, listCommentHandler } from '@/Handlers/commentHandler';
 
 (async () =>{
 await initdb();

@@ -1,56 +1,68 @@
 import { Comment, Post, User } from '@types';
-//Post APIs
+
+// ---------------- Post APIs ----------------
 // Create Post
-export type CreatePostRequest = Pick<Post, 'Title' | 'UserId' | 'Url'>;
-export interface CreatePostResponse {}
+export type CreatePostRequest = Pick<Post, 'title' | 'userId' | 'url'>;
+export interface CreatePostResponse {
+  post: Post;
+  message: string;
+}
+
 // List Posts
 export interface ListPostsRequest {}
 export interface ListPostsResponse {
-    posts: Post[];
+  posts: Post[];
+  message: string;
 }
 
 // Get Post
-export interface GetPostRequest {}
+export interface GetPostRequest {
+  id: string;
+}
 export interface GetPostResponse {
-    post: Post;
+  post: Post;
+  message: string;
 }
 
-//User APIs
-//signup
-export type singUpRequest = Pick<User,'Email' | 'password'| 'FirstName' | 'LastName'|'userName'>;
-export interface singUpResponse {}
+// ---------------- User APIs ----------------
+// Signup
+export type signUpRequest = Pick<User, 'email' | 'password' | 'firstName' | 'lastName' | 'userName'>;
+export interface signUpResponse {
+  user: Omit<User, 'password'>;
+  message: string;
+}
 
-//signin
-export type signInRequest = { 
-    login: string; // userName or email
-    password: string;
- };
-export type signInResponse = Pick<User, 'Email' | 'Id' | 'FirstName' | 'LastName'|'userName'>;
+// Signin
+export interface signInRequest {
+  login: string;   // userName or email
+  password: string;
+}
+export interface signInResponse {
+  user: Omit<User, 'password'>;
+  message: string;
+}
 
-//Comment APIs
-// Create comment 
-export type createCommentRequest = Pick<Comment,'Comment' | 'PostId'|'UserId'>;
+// ---------------- Comment APIs ----------------
+// Create Comment
+export type createCommentRequest = Pick<Comment, 'content' | 'postId' | 'userId'>;
 export interface createCommentResponse {
-    comment : Comment;
-    massage : string;
+  comment: Comment;
+  message: string;
 }
 
-// List Comment for a post
+// List Comments for a Post
 export interface ListCommentRequest {
-    postId: string;
-        massage : string;
+  postId: string;
 }
 export interface ListCommentResponse {
-    Comment: Comment[];
-        massage : string;
-
+  comments: Comment[];
+  message: string;
 }
 
-// Delete comment 
-
-export interface deleteCommentRequest{
-    id : string;
+// Delete Comment
+export interface deleteCommentRequest {
+  id: string;
 }
 export interface deleteCommentResponse {
-    message: string;
+  message: string;
 }

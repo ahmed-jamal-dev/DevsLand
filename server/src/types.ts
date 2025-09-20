@@ -1,29 +1,29 @@
 import { RequestHandler } from 'express';
 
 export interface User {
-    Id: string;
-    FirstName: string;
-    LastName: string;
+    id: string;
+    firstName: string;
+    lastName: string;
     userName: string;
-    Email: string;
+    email: string;
     password: string;
 }
 export interface Post {
-    Id: string;
-    Title: string;
-    Url: string;
-    UserId: string;
-    PostedAt: number;
+    id: string;
+    title: string;
+    url: string;
+    userId: string;
+    postedAt: number;
 }
 export interface Likes {
-    UserId: string;
-    PostId: string;
+    userId: string;
+    postId: string;
 }
 export interface Comment {
-    Id: string;
-    UserId: string;
-    PostId: string;
-    Comment: string;
+    id: string;
+    userId: string;
+    postId: string;
+    content: string;
     postedAt: number;
 }
 

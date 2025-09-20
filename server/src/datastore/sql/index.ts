@@ -26,11 +26,11 @@ export class sqlDataStore implements DataStore {
     async createUser(user: User): Promise<void> {
         await this.db.run(
             'INSERT INTO users (id , email , password , firstName , lastName , userName) VALUES (?, ?, ?, ?, ?, ?)',
-            user.Id,
-            user.Email,
+            user.email,
+            user.email,
             user.password,
-            user.FirstName,
-            user.LastName,
+            user.firstName,
+            user.lastName,
             user.userName
         );
     }
@@ -46,11 +46,11 @@ export class sqlDataStore implements DataStore {
     async createPost(post: Post): Promise<void> {
         await this.db.run(
             'INSERT INTO posts (id , title , url , userId , postedAt) VALUES (?, ?, ?, ?, ?)',
-            post.Id,
-            post.Title,
-            post.Url,
-            post.UserId,
-            post.PostedAt
+            post.id,
+            post.title,
+            post.url,
+            post.userId,
+            post.postedAt
         );
     }
     async getPost(id: string): Promise<Post | undefined> {
@@ -64,17 +64,17 @@ export class sqlDataStore implements DataStore {
     async createLike(like: Likes): Promise<void> {
         await this.db.run(
             'INSERT INTO likes (UserId, PostId) VALUES (?, ?)',
-            like.UserId,
-            like.PostId
+            like.userId,
+            like.postId
         );
     }
 
     async createComment(comment: Comment): Promise<void> {
         await this.db.run(
-            'INSERT INTO comment (userId, postId, Comment, postedAt) VALUES (?, ?, ?, ?)',
-            comment.UserId,
-            comment.PostId,
-            comment.Comment,
+            'INSERT INTO comment (userId, postId, content, postedAt) VALUES (?, ?, ?, ?)',
+            comment.userId,
+            comment.postId,
+            comment.content,
             comment.postedAt
         );
     }
