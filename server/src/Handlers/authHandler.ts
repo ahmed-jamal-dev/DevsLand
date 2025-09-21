@@ -4,6 +4,7 @@ import {
     signUpRequest, 
     signUpResponse 
 } from '@/api';
+import { signJwt } from '@/auth';
 import { db } from '@/datastore';
 import { ExpressHandler, User } from '@/types';
 import crypto from 'crypto';
@@ -27,21 +28,26 @@ export const signUpHandler: ExpressHandler<signUpRequest, signUpResponse> = asyn
         firstName,
         lastName,
         userName,
-        password, // ⚠️ Should be hashed in real apps (e.g., bcrypt)
+        password, 
     };
 
     await db.createUser(user);
-
-    return res.status(201).json({
-        message: 'User created successfully',
-        user: {
+    const jwt = signJwt({userId:user.id});
+    return res.status(200).send(
+    {
+        user:{
             id: user.id,
-            email: user.email,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            userName: user.userName,
+            email:user.email,
+            firstName:user.firstName,
+            lastName:user.lastName,
+            userName:user.userName
         },
-    });
+
+        jwt,
+    }
+    )
+
+
 };
 
 // Signin Handler
@@ -58,14 +64,16 @@ export const signInHandler: ExpressHandler<signInRequest, signInResponse> = asyn
         return res.status(403).json({ message: 'Invalid login or password' });
     }
 
+    const jwt = signJwt({userId : existing.id});
     return res.status(200).json({
         message: 'Login successful',
         user: {
-            id: existing.id,
             email: existing.email,
+            id: existing.id,
             firstName: existing.firstName,
             lastName: existing.lastName,
             userName: existing.userName,
         },
+        jwt,
     });
 };

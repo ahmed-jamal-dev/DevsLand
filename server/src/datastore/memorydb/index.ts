@@ -5,13 +5,16 @@ export class InMemoryDataStore implements DataStore {
     private posts: Post[] = [];
     private Comment: Comment[] = [];
     private likes: Likes[] = [];
-
+    
     createUser(user: User): void {
         this.users.push(user);
     }
     getUserByEmail(email: string):Promise< User | undefined> {
         return Promise.resolve(this.users.find(user => user.email === email));
     }
+    getUserById(id: string): Promise<User | undefined> {
+        return Promise.resolve(this.users.find(user => user.id === id));
+    }     
     getUserByuserName(userName: string):Promise< User | undefined >{
         return Promise.resolve(this.users.find(user => user.userName === userName));
     }

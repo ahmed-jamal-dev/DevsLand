@@ -5,14 +5,12 @@ import { Comment, Post, User } from '@types';
 export type CreatePostRequest = Pick<Post, 'title' | 'userId' | 'url'>;
 export interface CreatePostResponse {
   post: Post;
-  message: string;
 }
 
 // List Posts
 export interface ListPostsRequest {}
 export interface ListPostsResponse {
   posts: Post[];
-  message: string;
 }
 
 // Get Post
@@ -21,7 +19,6 @@ export interface GetPostRequest {
 }
 export interface GetPostResponse {
   post: Post;
-  message: string;
 }
 
 // ---------------- User APIs ----------------
@@ -29,7 +26,8 @@ export interface GetPostResponse {
 export type signUpRequest = Pick<User, 'email' | 'password' | 'firstName' | 'lastName' | 'userName'>;
 export interface signUpResponse {
   user: Omit<User, 'password'>;
-  message: string;
+  jwt :string;
+
 }
 
 // Signin
@@ -39,7 +37,7 @@ export interface signInRequest {
 }
 export interface signInResponse {
   user: Omit<User, 'password'>;
-  message: string;
+  jwt:string;
 }
 
 // ---------------- Comment APIs ----------------
@@ -47,7 +45,6 @@ export interface signInResponse {
 export type createCommentRequest = Pick<Comment, 'content' | 'postId' | 'userId'>;
 export interface createCommentResponse {
   comment: Comment;
-  message: string;
 }
 
 // List Comments for a Post
@@ -56,7 +53,6 @@ export interface ListCommentRequest {
 }
 export interface ListCommentResponse {
   comments: Comment[];
-  message: string;
 }
 
 // Delete Comment
@@ -64,5 +60,4 @@ export interface deleteCommentRequest {
   id: string;
 }
 export interface deleteCommentResponse {
-  message: string;
 }

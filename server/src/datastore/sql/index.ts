@@ -17,7 +17,7 @@ export class sqlDataStore implements DataStore {
         // enable foreign key constraints
         this.db.run('PRAGMA foreign_keys = ON');
         // run migrations
-
+        
         await this.db.migrate({
             migrationsPath: path.join(__dirname, 'migrations'),
         });
@@ -26,7 +26,7 @@ export class sqlDataStore implements DataStore {
     async createUser(user: User): Promise<void> {
         await this.db.run(
             'INSERT INTO users (id , email , password , firstName , lastName , userName) VALUES (?, ?, ?, ?, ?, ?)',
-            user.email,
+            user.id,
             user.email,
             user.password,
             user.firstName,
@@ -36,6 +36,9 @@ export class sqlDataStore implements DataStore {
     }
     getUserByEmail(email: string): Promise<User | undefined> {
         return this.db.get<User>('SELECT * FROM users WHERE email = ?', email);
+    }
+    getUserById(id: string): Promise<User | undefined> {
+        return this.db.get<User>('SELECT * FROM users WHERE id = ?' , id)
     }
     getUserByuserName(userName: string): Promise<User | undefined> {
         return this.db.get<User>('SELECT * FROM users WHERE userName = ?', userName);
