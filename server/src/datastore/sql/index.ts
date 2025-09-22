@@ -8,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 export class sqlDataStore implements DataStore {
     private db!: Database<sqlite3.Database, sqlite3.Statement>;
-    public async opinDb() {
+    public async openDb() {
         // open the database
         this.db = await sqliteOpen({
             filename: path.join(__dirname, 'devsland.sqlite'),
@@ -60,21 +60,23 @@ export class sqlDataStore implements DataStore {
         return this.db.get<Post>('SELECT * FROM posts WHERE id = ?', id);
     }
 
+    async getPostByUrl(url: string): Promise<Post | undefined> {
+    return this.db.get<Post>(
+        'SELECT * FROM posts WHERE url = ?',
+        url
+    );
+}
+
+
     async deletePost(id: string): Promise<void> {
         await this.db.run('DELETE FROM posts WHERE id = ?', id);
     }
 
-    async createLike(like: Likes): Promise<void> {
-        await this.db.run(
-            'INSERT INTO likes (UserId, PostId) VALUES (?, ?)',
-            like.userId,
-            like.postId
-        );
-    }
 
     async createComment(comment: Comment): Promise<void> {
         await this.db.run(
-            'INSERT INTO comment (userId, postId, content, postedAt) VALUES (?, ?, ?, ?)',
+            'INSERT INTO comment (id, userId, postId, content, postedAt) VALUES (?, ?, ?, ?,?)',
+            comment.id,
             comment.userId,
             comment.postId,
             comment.content,
@@ -92,4 +94,45 @@ export class sqlDataStore implements DataStore {
     async deleteComment(id: string): Promise<void> {
         await this.db.run('DELETE FROM comment WHERE id = ?', id);
     }
+        async createLike(like: Likes): Promise<void> {
+        await this.db.run(
+            'INSERT INTO likes (userId, postId) VALUES (?, ?)',
+            like.userId,
+            like.postId
+        );
+    }
+
+    async deleteLike(userId: string, postId: string): Promise<void> {
+        await this.db.run(
+            'DELETE FROM likes WHERE userId = ? AND postId = ?',
+            userId,
+            postId
+        );
+    }
+
+    async listLikes(postId: string): Promise<Likes[]> {
+        return this.db.all<Likes[]>(
+            'SELECT * FROM likes WHERE postId = ?',
+            postId
+        );
+    }
+
+    async countLikes(postId: string): Promise<number> {
+        const row = await this.db.get<{ count: number }>(
+            'SELECT COUNT(*) as count FROM likes WHERE postId = ?',
+            postId
+        );
+        return row?.count ?? 0;
+    }
+
+
+    async userLiked(userId: string, postId: string): Promise<boolean> {
+        const row = await this.db.get<Likes>(
+            'SELECT * FROM likes WHERE userId = ? AND postId = ?',
+            userId,
+            postId
+        );
+        return !!row;
+    }
+
 }

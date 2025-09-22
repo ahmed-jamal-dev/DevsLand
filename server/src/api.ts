@@ -1,10 +1,11 @@
-import { Comment, Post, User } from '@types';
+import { Comment, Post, User, Likes } from '@types';
 
 // ---------------- Post APIs ----------------
 // Create Post
 export type CreatePostRequest = Pick<Post, 'title' | 'userId' | 'url'>;
 export interface CreatePostResponse {
   post: Post;
+  error:string;
 }
 
 // List Posts
@@ -26,8 +27,8 @@ export interface GetPostResponse {
 export type signUpRequest = Pick<User, 'email' | 'password' | 'firstName' | 'lastName' | 'userName'>;
 export interface signUpResponse {
   user: Omit<User, 'password'>;
-  jwt :string;
-
+  jwt: string;
+  error:string;
 }
 
 // Signin
@@ -37,7 +38,8 @@ export interface signInRequest {
 }
 export interface signInResponse {
   user: Omit<User, 'password'>;
-  jwt:string;
+  jwt: string;
+  error :string;
 }
 
 // ---------------- Comment APIs ----------------
@@ -59,5 +61,28 @@ export interface ListCommentResponse {
 export interface deleteCommentRequest {
   id: string;
 }
-export interface deleteCommentResponse {
+export interface deleteCommentResponse {}
+
+// ---------------- Like APIs ----------------
+// Create Like
+export type createLikeRequest = Pick<Likes, 'postId' | 'userId'>;
+export interface createLikeResponse {
+  like: Likes;
 }
+
+// Delete Like
+export type deleteLikeRequest = Pick<Likes, 'postId' | 'userId'>;
+export interface deleteLikeResponse {
+  success: boolean;
+}
+
+// List Likes for a Post
+export interface listLikeRequest {
+  postId: string;
+}
+export interface listLikeResponse {
+  likes: Likes[];
+  count: number;
+}
+export { Likes };
+

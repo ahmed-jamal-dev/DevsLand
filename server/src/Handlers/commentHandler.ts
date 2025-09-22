@@ -18,8 +18,7 @@ const comment: Comment = {
         content,
         postedAt: Date.now(),
     };
-
-    await db.createComment(comment);
+    await db.createComment(comment)
     return res.status(201).json({ message: 'Comment created successfully', comment });
 };
 export const listCommentHandler : ExpressHandler<ListCommentRequest,ListCommentResponse> = async (req,res)=>{

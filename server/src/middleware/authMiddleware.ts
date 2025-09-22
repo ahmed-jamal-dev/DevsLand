@@ -1,10 +1,8 @@
 import { verifyJwt } from '@/auth';
 import { db } from '@/datastore';
 import { ExpressHandler } from '@/types';
-import { error } from 'console';
-
 export const authMiddleware: ExpressHandler<any, any> = async (req, res, next) => {
-    const token = req.headers.authorization?.split('')[1];
+    const token = req.headers.authorization?.split(' ')[1];
     if (!token) {
         return res.sendStatus(401);
     }

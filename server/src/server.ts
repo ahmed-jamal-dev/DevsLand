@@ -1,6 +1,6 @@
-import express, { RequestHandler, ErrorRequestHandler } from 'express';
+import express from 'express';
 import { createPostHandler, listPostHandler } from '@handlers';
-import { initdb } from '@datastore';
+
 import { signInHandler, signUpHandler } from '@/Handlers/authHandler';
 import {
     createCommentHandler,
@@ -11,6 +11,9 @@ import { RequestLoggerMiddleware } from './middleware/loggerMeddleware';
 import { errorHandler } from './middleware/errorMeddleware';
 import dotenv from 'dotenv';
 import { authMiddleware } from './middleware/authMiddleware';
+import { createLikeHandler, deleteLikeHandler, listLikeHandler } from './Handlers/likesHandler';
+import { initdb } from '@datastore';
+
 (async () => {
     await initdb();
     dotenv.config();
@@ -21,7 +24,7 @@ import { authMiddleware } from './middleware/authMiddleware';
     //USER
     app.post('/v1/signup', signUpHandler);
     app.post('/v1/signin', signInHandler);
-    // app.use(authMiddleware);
+    app.use(authMiddleware);
     //Private endpoints
     //POST
     app.get('/v1/listPost', listPostHandler);
@@ -30,7 +33,17 @@ import { authMiddleware } from './middleware/authMiddleware';
     //COMMENTS
     app.post('/v1/addcomment', createCommentHandler);
     app.get('/v1/listcomment', listCommentHandler);
-    app.get('/v1/deletecomment', deleteCommentHandler);
+    app.delete('/v1/deletecomment', deleteCommentHandler);
+
+//LIKES
+    // Create Like
+app.post('/v1/creatlike', createLikeHandler);
+
+// Delete Like
+app.delete('/v1/deletelike', deleteLikeHandler);
+
+// List Likes for a Post
+app.get('/v1/listlikes', listLikeHandler);
 
     app.use(errorHandler);
     app.listen(3000, async () => {

@@ -1,6 +1,9 @@
 import { User, Post, Likes, Comment } from '@types';
 import { DataStore } from '@datastore';
 export class InMemoryDataStore implements DataStore {
+    getPostByUrl(url: string): Promise<Post | undefined> {
+        throw new Error('Method not implemented.');
+    }
     private users: User[] = [];
     private posts: Post[] = [];
     private Comment: Comment[] = [];
